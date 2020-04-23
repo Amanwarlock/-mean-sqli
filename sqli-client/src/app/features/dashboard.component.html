@@ -4,9 +4,9 @@
         <button mat-icon-button aria-label="menu icon-button" class="menu-btn" (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
-        <span>E-Commerce</span>
+        <span><a routerLink="/" class="link">E-Commerce</a></span>
         <span class="spacer"></span>
-        <mat-icon class="toolbar-icon" aria-hidden="false" aria-label="icon">delete</mat-icon>
+        <button mat-button (click)="logout()">Logout</button>
       </mat-toolbar-row>
 </mat-toolbar>
 
@@ -15,6 +15,11 @@
     <mat-sidenav #sidenav mode="side" opened class="sidenav"
                  [fixedInViewport]="true" [fixedTopGap]="60"
                  [fixedBottomGap]="50">
+                <mat-list role="list" class="menu-list">
+                    <mat-list-item role="listitem" matRipple *ngFor="let menu of menu$ | async">
+                        <a routerLink="menu.route" routerLinkActive="active">{{menu.title}}</a>
+                    </mat-list-item>
+                </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>

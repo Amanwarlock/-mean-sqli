@@ -3,6 +3,11 @@
   top: 0;
   left: 0;
   right: 0;
+  .link{
+      text-decoration: none;
+      color: #fff;
+      cursor: pointer;
+  }
     .menu-btn{
         margin-right: 8px;
         width: 50px;
@@ -36,6 +41,19 @@
     align-items: center;
     justify-content: center;
     width: 200px;
+    .menu-list{
+        mat-list-item{
+            a{
+                text-decoration: none;
+                cursor: pointer;
+                color: black;
+            }
+        }
+    }
   }
 }
 
+link{
+    text-decoration: none;
+    color: #fff;
+}

@@ -68,11 +68,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sqli-client:build"
+            "browserTarget": "sqli-client:build",
+            "proxyConfig": "src/proxy.config.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sqli-client:build:production"
+              "browserTarget": "sqli-client:build:production",
+              "proxyConfig": "src/proxy.config.json"
             }
           }
         },

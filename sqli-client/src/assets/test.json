@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Home",
+        "route": "",
+        "logo": ""
+    },
+    {
+        "title": "Accounts",
+        "route": "",
+        "logo": ""
+    },
+    {
+        "title": "Orders",
+        "route": "",
+        "logo": ""
+    }
+]
