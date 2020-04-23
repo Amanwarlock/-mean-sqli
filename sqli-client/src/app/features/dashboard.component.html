@@ -1,0 +1,26 @@
+
+<mat-toolbar color="primary" class="app-header">
+    <mat-toolbar-row>
+        <button mat-icon-button aria-label="menu icon-button" class="menu-btn" (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>E-Commerce</span>
+        <span class="spacer"></span>
+        <mat-icon class="toolbar-icon" aria-hidden="false" aria-label="icon">delete</mat-icon>
+      </mat-toolbar-row>
+</mat-toolbar>
+
+
+<mat-sidenav-container class="app-sidenav-container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav"
+                 [fixedInViewport]="true" [fixedTopGap]="60"
+                 [fixedBottomGap]="50">
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+  <mat-toolbar class="app-footer" color="primary">Footer</mat-toolbar>
