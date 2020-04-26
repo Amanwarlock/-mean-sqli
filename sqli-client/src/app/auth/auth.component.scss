@@ -1,0 +1,46 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .auth-card{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        padding: 0;
+        .auth-header .auth-title{
+            display: flex;
+            justify-content: center;
+            letter-spacing: 1px;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 20px;
+            .form-field, .login-btn{
+                width: 350px;
+                align-self: center;
+                margin-bottom: 20px;
+            }
+
+            .login-btn{
+                padding: 8px;
+                border-radius: none;
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+           
+        }
+    }
+
+    .sign-up{
+        form{
+            padding: 20px;
+            .form-field{
+                margin-bottom: 0;
+            }
+        }
+    }
+}

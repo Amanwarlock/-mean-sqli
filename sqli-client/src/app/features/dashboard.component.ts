@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   menu$: Observable<any[]>;
 
@@ -18,7 +19,9 @@ export class DashboardComponent implements OnInit {
   }
 
   logout(){
-    this.authService.logout();
+    this.authService.logout().subscribe(d=>{
+      this.router.navigate(["/login"]);
+    });
   }
 
 }

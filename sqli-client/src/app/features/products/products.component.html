@@ -1,0 +1,29 @@
+
+<div class="main">
+    <div *ngFor="let category of  categories" class="category-grp">
+      
+        <mat-card-title>{{category}}</mat-card-title>
+      
+        <div class="product-grid">
+            <mat-card  class="product-card" *ngFor="let product of productList[category]">
+                <mat-card-header>
+                    <mat-card-title>{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>Brand: {{product.brand}}</mat-card-subtitle>
+                </mat-card-header>
+                <div class="product-image" *ngIf="product.quantity"><mat-icon>wallpaper</mat-icon></div>
+                <div class="pricing-holder"  [ngClass] = "{'out-of-stock' : !product.quantity }"></div>
+                <div class="out-of-stock-label" *ngIf="!product.quantity">
+                    <mat-chip-list >
+                        <mat-chip color="warn" selected>Out Of Stock</mat-chip>
+                    </mat-chip-list>
+                </div>
+                <div class="pricing">
+                    <mat-chip-list aria-label="price selection" *ngIf="product.quantity">
+                        <mat-chip color="primary" selected>${{product.price}}</mat-chip>
+                        <mat-chip>In Stock {{ product.quantity}}</mat-chip>
+                    </mat-chip-list>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

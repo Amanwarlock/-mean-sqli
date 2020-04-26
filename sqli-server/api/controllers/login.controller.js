@@ -3,21 +3,65 @@ const crypto = require("crypto");
 var jwt = require("jsonwebtoken");
 const mysql = require('mysql');
 const db = global.db;
+const mssql = global.mssql;
+
+asyncMiddleware = fn => (req, res, next) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+};
 
 function isLoggedIn(req,res){
-    res.status(200).send({isLoggedIn: true});
+    let token = req.headers["authorization"];
+    validateToken(token).then(data=>{
+        if(data.isValid){
+            res.status(200).send({isLoggedIn: true});
+        }else{
+            res.status(200).send({isLoggedIn: false});
+        }
+    }).catch(e=>{
+        res.status(200).send({isLoggedIn: false, error: e.message});
+    })
 }
+
+function validateToken(token){
+    return new Promise((resolve,reject)=>{
+        // Validate JWT token;
+        const jwtPromise = new Promise((resolve,reject)=>{
+            jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
+                if (err) {
+                  reject(new Error(`JWT Token invalid`));
+                } else {
+                  resolve(decoded);
+                }
+              });
+        });
+  
+        jwtPromise.then(decoded => {
+          resolve({isValid: true, user: decoded});
+        }).catch(e =>{
+            reject(e);
+        });
+       
+    });
+  }
 
 function login(req,res){
     let body = req.swagger.params['data'].value;
-    let query = `SELECT * FROM user WHERE email=${body.email}`;
-    console.log("query ------", query);
-    db.query(query, (err,doc)=>{
-        if(err) res.status(403).send({message: err.message});
-        else if(doc) res.status(200).send(doc);
+    // "SELECT * FROM user WHERE email = 'aman@gmail.com'"
+    let query = `SELECT * FROM user WHERE email = '${body.email}' AND password = '${body.password}'`;
+    console.log("Query ---------", query);
+    db.query(query,(err,doc)=>{
+        if(err) {
+            res.status(403).send({message: err.message});
+        }
+        else if(doc) {
+            let token = generateToken(doc[0]);
+            doc[0].token = token;
+            res.status(200).send(doc);
+        }
         else res.status(403).send({message: `User not found`});
-    })
+    });
 }
+
 
 function generateToken(doc){
     let claim = {
@@ -25,7 +69,6 @@ function generateToken(doc){
         name: doc.name,
         email: doc.email,
     }
-
     return jwt.sign(claim, process.env.SECRET_KEY, { expiresIn: process.env.TOKEN_EXP });
 }
 

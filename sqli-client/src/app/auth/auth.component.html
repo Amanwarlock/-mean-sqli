@@ -1,1 +1,67 @@
-<p>auth works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>E-Commerce</span>
+        <span class="spacer"></span>
+        <button mat-button (click)="OnLogin()">Login</button>
+        <button mat-button (click)="OnSignUp()">Sign Up</button>
+      </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="container">
+    <mat-card *ngIf="!isSignUp" class="auth-card">
+        <mat-toolbar color="primary" class="auth-header"><mat-toolbar-row class="auth-title">LOGIN</mat-toolbar-row></mat-toolbar>
+        <form [formGroup]="loginForm" class="form">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder=""  required formControlName="email">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" class="login-btn" (click)="OnLoginSubmit()">LOGIN</button>
+    
+        </form>
+    </mat-card>
+    
+    
+    <mat-card *ngIf="isSignUp" class="auth-card sign-up">
+        <mat-toolbar color="primary" class="auth-header"><mat-toolbar-row class="auth-title">SIGN UP</mat-toolbar-row></mat-toolbar>
+        <form [formGroup]="signUpForm" class="form">
+            
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder=""  required formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder=""  required formControlName="email">
+            </mat-form-field>
+    
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <button mat-flat-button color="primary" class="login-btn">SIGN UP</button>
+    
+        </form>
+    </mat-card>
+</div>

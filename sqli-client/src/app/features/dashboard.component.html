@@ -6,6 +6,7 @@
         </button>
         <span><a routerLink="/" class="link">E-Commerce</a></span>
         <span class="spacer"></span>
+        <mat-icon>shopping_cart</mat-icon>
         <button mat-button (click)="logout()">Logout</button>
       </mat-toolbar-row>
 </mat-toolbar>
@@ -17,7 +18,7 @@
                  [fixedBottomGap]="50">
                 <mat-list role="list" class="menu-list">
                     <mat-list-item role="listitem" matRipple *ngFor="let menu of menu$ | async">
-                        <a routerLink="menu.route" routerLinkActive="active">{{menu.title}}</a>
+                        <a routerLink="{{menu.route}}" routerLinkActive="active">{{menu.title}}</a>
                     </mat-list-item>
                 </mat-list>
     </mat-sidenav>
@@ -28,4 +29,4 @@
 
   </mat-sidenav-container>
 
-  <mat-toolbar class="app-footer" color="primary">Footer</mat-toolbar>
+  <mat-toolbar class="app-footer" color="primary">@ Aman Kareem</mat-toolbar>

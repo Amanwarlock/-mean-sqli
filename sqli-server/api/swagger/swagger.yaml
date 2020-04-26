@@ -69,11 +69,190 @@ paths:
           schema:
             # a pointer to a definition
             $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
         # responses may fall through to errors
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  
+  /v1/load/users:
+    x-swagger-router-controller: users.controller
+    post:
+      operationId: v1_loadUsers
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
+  /v1/load/products:
+    x-swagger-router-controller: products.controller
+    post:
+      operationId: v1_loadProducts
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /v1/drop/products:
+    x-swagger-router-controller: products.controller
+    put:
+      operationId: v1_dropProductTable
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /v1/load/inventory:
+    x-swagger-router-controller: inventory.controller
+    post:
+      operationId: v1_loadInventory
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /v1/drop/inventory:
+    x-swagger-router-controller: inventory.controller
+    put:
+      operationId: v1_dropInventoryTable
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
+  /v1/products:
+    x-swagger-router-controller: products.controller
+    get:
+      operationId: v1_productList
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /v1/inventory/update:
+    x-swagger-router-controller: inventory.controller
+    put:
+      operationId: v1_updateInventory
+      parameters:
+          - name: data
+            in: body
+            required: true
+            schema:
+                $ref: "#/definitions/inventory_update"
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "400":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        "403":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/DefaultResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -98,3 +277,12 @@ definitions:
             type: string
           password:
               type: string
+          query:
+            type: string
+
+  inventory_update:
+      properties:
+          price: 
+              type: number
+          _id:
+            type: number
