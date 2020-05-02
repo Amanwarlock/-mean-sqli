@@ -1,24 +1,46 @@
 const db = global.db;
+const async = require("async");
 const userList = require("../helpers/users.data");
 
 const TABLE_NAME = "user";
 
 function loadUsers(req,res){
     console.log("Loading users into database ......");
-    let query = `INSERT INTO user (email,name,password) VALUES ?`;
-    db.query(query, [userList], (err,result)=>{
+    async.waterfall([
+        _dropTable(),
+        _createTable,
+        _insertIntoTable
+    ],function(err,result){
         if(err){
-            console.log("Error occured while inserting users into the database", err);
-            res.status(400).send({message: err.message, info: `Error occured while inserting users into db`});
+            res.status(400).send({message: `Error occured while inserting products into database`, error: err.message});
         }else{
-            console.log("Result ----------", result);
             res.status(200).send(result);
         }
     });
+
+    function _dropTable(){
+        return function(callback){
+            drop().then(d=>{
+                callback(null,d);
+            }).catch(e => callback(e));
+        }
+    }
+
+    function _createTable(result, callback){
+        createTable().then(d=>{
+            callback(null,d);
+        }).catch(e => callback(e));
+    }
+
+    function _insertIntoTable(result, callback){
+        insert(userList).then(d=>{
+            callback(null, result);
+        }).catch(e => callback(e));
+    }
 }
 
 
-function dropTable(){
+function drop(){
     return new Promise((resolve,reject)=>{
         let query = `DROP TABLE IF EXISTS ${TABLE_NAME}`;
         db.query(query, function(err,result){
@@ -35,12 +57,29 @@ function createTable(){
                 name VARCHAR(255),
                 email VARCHAR(255),
                 password VARCHAR(255),
-                role VARCHAR(255)
+                role VARCHAR(255),
+                card_number VARCHAR(255),
+                cvv INT,
+                validity VARCHAR(255),
+                card_type VARCHAR(255)
             )`;
 
         db.query(query, function(err,result){
             if(err) reject(err);
             else resolve(result);
+        });
+    });
+}
+
+function insert(dataArr){
+    return new Promise((resolve,reject)=>{
+        let query = `INSERT INTO ${TABLE_NAME} (email,name,password,role,card_number,cvv,validity,card_type) VALUES ?`;
+        db.query(query, [dataArr], (err,result)=>{
+            if(err){
+                reject(err);
+            }else{
+                resolve(result);
+            }
         });
     });
 }
