@@ -13,18 +13,25 @@
         <form [formGroup]="loginForm" class="form">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder=""  required formControlName="email">
+                <input matInput placeholder=""  required=true formControlName="email" type="email">
+                <mat-hint *ngIf="loginForm.controls.email.errors?.required">Email is required</mat-hint>
+                <mat-error *ngIf="loginForm.controls.email.hasError('email') && !loginForm.controls.email.hasError('required')">
+                    Please enter a valid email address
+                  </mat-error>
             </mat-form-field>
     
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required=true>
+                <mat-error *ngIf="loginForm.controls.password.hasError('password') && !loginForm.controls.password.hasError('required')">
+                    Please enter a valid password
+                  </mat-error>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
-
-            <button mat-flat-button color="primary" class="login-btn" (click)="OnLoginSubmit()">LOGIN</button>
+            <!-- {{loginForm.status}} -->
+            <button mat-flat-button color="primary" class="login-btn" (click)="OnLoginSubmit()" [disabled]="loginForm.status !== 'VALID' ? true: false">LOGIN</button>
     
         </form>
     </mat-card>
