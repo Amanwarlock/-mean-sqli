@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
   OnLoginSubmit(){
     let data = this.loginForm.value;
     this.authService.login(data).subscribe(result=>{
-      this.router.navigate(['/']);
+      this.router.navigate(['/dashboard']);
     }, err=>{
 
     });
