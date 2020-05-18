@@ -45,10 +45,11 @@ function validateToken(token){
   }
 
 function login(req,res){
+
     let body = req.swagger.params['data'].value;
-    // "SELECT * FROM user WHERE email = 'aman@gmail.com'"
+    
     let query = `SELECT * FROM user WHERE email = '${body.email}' AND password = '${body.password}'`;
-    console.log("Query ---------", query);
+   
     db.query(query,(err,doc)=>{
         if(err) {
             res.status(403).send({message: err.message});
@@ -60,6 +61,21 @@ function login(req,res){
         }
         else res.status(403).send({message: `User not found`});
     });
+
+    // let query = `SELECT * FROM user WHERE email = ? AND password = ? `;
+
+    // db.query(query, [body.email, body.password],(err,doc)=>{
+    //     if(err) {
+    //         res.status(403).send({message: err.message});
+    //     }
+    //     else if(doc && doc.length) {
+    //         let token = generateToken(doc[0]);
+    //         doc[0].token = token;
+    //         res.status(200).send(doc);
+    //     }
+    //     else res.status(403).send({message: `User not found`});
+    // });
+
 }
 
 

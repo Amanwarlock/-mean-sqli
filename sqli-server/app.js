@@ -18,39 +18,6 @@ var connection = mysql.createConnection({
   multipleStatements: true
 });
 
-// MS SQL------------------------------------------------------------------------------------------------------------
-
-const mssqlConfig = {
-  user: 'TSINNOVATE-12\aman',
-  password: '',
-  server: 'TSINNOVATE-12', // You can use 'localhost\\instance' to connect to named instance
-  database: 'sqlidb' ,
-  options : {
-    encrypt : false,
-  }
-}
-
-// sql.connect(mssqlConfig).then(pool => {
-//   // Query
-//   console.log("-ddddddddddddddddddddddddddddddd",pool);
- 
-// }).catch(err => {
-//   console.log('logging err');
-//   console.log(err);
-// })
-
-// sql.on('error', err => {
-//   console.log('logging sql.on err');
-//   console.log(err);
-// })
-
-
-// var dbConn = new sql.Connection(mssqlConfig);
-// dbConn.connect().then(function () {
-//   var request = new sql.Request(dbConn);
-//   global.mssql = request;
-// })
-
 
 // MY SQL------------------------------------------------------------------------------------------------------------
 global.db = connection;
